@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download de Vídeos do YouTube</title>
+</head>
+<body>
+    <h1>Download de Vídeos do YouTube</h1>
+    <form id="form-baixar">
+        <label for="url">Insira a URL do Vídeo ou Canal do YouTube:</label>
+        <input type="text" id="url" name="url" required>
+        <button type="submit">Baixar</button>
+    </form>
+
+    <script>
+        document.getElementById('form-baixar').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const url = document.getElementById('url').value;
+            fetch('/baixar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: url }),
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Erro:', error));
+        });
+    </script>
+</body>
+</html>
